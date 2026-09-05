@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>之间</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#EDEEF1;
+  --surface:#FFFFFF;
+  --surface-2:#F5F6F8;
+  --ink:#1B1E24;
+  --ink-2:#565C66;
+  --ink-3:#868D99;
+  --line:#DEE1E6;
+  --line-2:#C7CCD4;
+  --a:#9E4F5E;      --a-tint:#F7EBED;  --a-edge:#E3C7CC;
+  --b:#2E6A66;      --b-tint:#E6F0EE;  --b-edge:#BFD8D4;
+  --med:#3A3F4A;    --med-tint:#EDEEF1;
+  --on-accent:#FFFFFF;
+  --warn:#A85336;
+  --glow-a:rgba(158,79,94,.07);
+  --glow-b:rgba(46,106,102,.07);
+  --shadow:0 1px 2px rgba(27,30,36,.05), 0 8px 24px rgba(27,30,36,.06);
+  --shadow-lift:0 4px 12px rgba(27,30,36,.10), 0 24px 48px rgba(27,30,36,.14);
+  --ui:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Songti SC","SimSun",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#111318;
+    --surface:#1A1D23;
+    --surface-2:#22262D;
+    --ink:#E7E9ED;
+    --ink-2:#A3AAB5;
+    --ink-3:#767D89;
+    --line:#2B2F36;
+    --line-2:#3B414A;
+    --a:#D2848F;      --a-tint:#2C2025;  --a-edge:#4A353A;
+    --b:#6FB6AF;      --b-tint:#162726;  --b-edge:#2E4744;
+    --med:#C9CDD5;    --med-tint:#23262C;
+    --on-accent:#15171B;
+    --warn:#D9906C;
+    --glow-a:rgba(210,132,143,.07);
+    --glow-b:rgba(111,182,175,.07);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-lift:0 4px 12px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#111318;
+  --surface:#1A1D23;
+  --surface-2:#22262D;
+  --ink:#E7E9ED;
+  --ink-2:#A3AAB5;
+  --ink-3:#767D89;
+  --line:#2B2F36;
+  --line-2:#3B414A;
+  --a:#D2848F;      --a-tint:#2C2025;  --a-edge:#4A353A;
+  --b:#6FB6AF;      --b-tint:#162726;  --b-edge:#2E4744;
+  --med:#C9CDD5;    --med-tint:#23262C;
+  --on-accent:#15171B;
+  --warn:#D9906C;
+  --glow-a:rgba(210,132,143,.07);
+  --glow-b:rgba(111,182,175,.07);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --shadow-lift:0 4px 12px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:
+    radial-gradient(60% 50% at 0% 30%, var(--glow-a), transparent 70%),
+    radial-gradient(60% 50% at 100% 70%, var(--glow-b), transparent 70%),
+    var(--ground);
+  color:var(--ink);
+  font-family:var(--ui);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  font-size:15px;
+  line-height:1.6;
+}
+button{font-family:inherit;}
+:focus-visible{outline:2px solid var(--med);outline-offset:2px;border-radius:4px;}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+/* ---------- shell ---------- */
+.app{
+  max-width:720px;
+  margin:0 auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border-inline:1px solid var(--line);
+}
+@media(min-width:760px){
+  .app{min-height:100vh;box-shadow:var(--shadow);}
+}
+
+/* ---------- header ---------- */
+header.top{
+  padding:22px 22px 0;
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+}
+.brandrow{display:flex;align-items:flex-start;gap:14px;}
+.wordmark{
+  font-family:var(--serif);
+  font-size:27px;
+  font-weight:500;
+  letter-spacing:.12em;
+  line-height:1.1;
+  margin:0;
+}
+.tagline{
+  color:var(--ink-2);
+  font-size:12.5px;
+  font-weight:300;
+  margin-top:6px;
+  max-width:38ch;
+}
+.topright{margin-left:auto;display:flex;gap:6px;align-items:center;}
+.iconbtn{
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink-2);
+  width:30px;height:30px;
+  border-radius:8px;
+  cursor:pointer;
+  display:grid;place-items:center;
+  transition:border-color .15s, color .15s;
+}
+.iconbtn:hover{border-color:var(--line-2);color:var(--ink);}
+
+.viewbar{
+  display:flex;align-items:center;gap:10px;
+  margin-top:16px;padding-bottom:14px;
+  flex-wrap:wrap;
+}
+.viewbar .lab{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+}
+.seg{
+  display:flex;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:2px;
+  gap:2px;
+  background:var(--surface-2);
+}
+.seg button{
+  border:none;background:transparent;
+  padding:5px 15px;border-radius:999px;
+  font-size:13px;font-weight:500;color:var(--ink-2);
+  cursor:pointer;transition:background .18s, color .18s;
+  display:flex;align-items:center;gap:6px;
+}
+.seg button .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;}
+.seg button[data-on="A"]{background:var(--a);color:var(--on-accent);}
+.seg button[data-on="B"]{background:var(--b);color:var(--on-accent);}
+.seg button[data-on] .dot{opacity:1;}
+
+/* ---------- tabs ---------- */
+nav.tabs{
+  display:flex;
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:8;
+}
+nav.tabs button{
+  flex:1;
+  padding:12px 6px 10px;
+  background:none;border:none;
+  cursor:pointer;
+  color:var(--ink-3);
+  border-bottom:2px solid transparent;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:color .15s;
+}
+nav.tabs button .t{font-size:14px;font-weight:500;}
+nav.tabs button .s{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;opacity:.85;}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--med);}
+nav.tabs button:hover{color:var(--ink-2);}
+
+main{flex:1;padding:18px 22px 40px;}
+
+/* ---------- privacy banner ---------- */
+.privacy{
+  display:flex;gap:11px;align-items:flex-start;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px 13px;
+  margin-bottom:20px;
+}
+.privacy svg{flex:none;margin-top:2px;color:var(--ink-3);}
+.privacy .h{font-size:12.5px;font-weight:500;letter-spacing:.01em;}
+.privacy .d{font-size:12px;color:var(--ink-2);font-weight:300;line-height:1.65;margin-top:2px;}
+
+/* ---------- diary ---------- */
+.entry{
+  border-bottom:1px solid var(--line);
+  padding:0 0 20px;
+  margin-bottom:20px;
+}
+.entry:last-of-type{border-bottom:none;}
+.entry-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;flex-wrap:wrap;}
+.stamp{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;}
+.mood{
+  font-size:11px;padding:2px 9px;border-radius:999px;
+  border:1px solid currentColor;
+  opacity:.9;
+}
+.entry-body{
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:1.95;
+  white-space:pre-wrap;
+  color:var(--ink);
+}
+.entry img{margin-top:12px;max-width:100%;border-radius:8px;display:block;border:1px solid var(--line);}
+.accessbtn{
+  margin-left:auto;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink-3);
+  font-family:var(--mono);
+  font-size:10px;letter-spacing:.04em;
+  padding:3px 9px;border-radius:6px;
+  cursor:pointer;
+  display:flex;align-items:center;gap:5px;
+  transition:border-color .15s,color .15s;
+}
+.accessbtn:hover{border-color:var(--line-2);color:var(--ink-2);}
+.accessbtn[data-private="true"]{color:var(--warn);border-color:var(--warn);opacity:.85;}
+
+.readline{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;
+  color:var(--ink-3);
+  margin:-6px 0 22px;
+}
+.readline .bar{flex:1;height:1px;background:var(--line);}
+
+/* ---------- composer ---------- */
+.composer{
+  margin-top:26px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+}
+.composer h4{
+  margin:0 0 10px;
+  font-size:11px;font-family:var(--mono);letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;
+}
+textarea{
+  width:100%;resize:vertical;min-height:78px;
+  font-family:var(--ui);font-size:14.5px;line-height:1.65;
+  padding:11px 13px;border-radius:9px;
+  border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);
+}
+textarea:focus{border-color:var(--line-2);outline:none;}
+.moodpick{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.moodpick button{
+  border:1px solid var(--line);background:var(--surface);
+  color:var(--ink-2);font-size:12px;padding:4px 11px;border-radius:999px;cursor:pointer;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.moodpick button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink);}
+.crow{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.filebtn{
+  font-size:12px;color:var(--ink-2);cursor:pointer;
+  border:1px dashed var(--line-2);padding:6px 12px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.filebtn input{display:none;}
+.thumb{height:38px;border-radius:6px;border:1px solid var(--line);}
+.spacer{flex:1;}
+.btn{
+  border:none;border-radius:8px;
+  padding:9px 18px;
+  font-size:13.5px;font-weight:500;
+  cursor:pointer;
+  background:var(--med);color:var(--surface);
+  transition:opacity .15s;
+}
+:root[data-theme="dark"] .btn{color:var(--on-accent);}
+.btn:hover{opacity:.88;}
+.btn:disabled{opacity:.4;cursor:default;}
+.btn.me{background:var(--me);color:var(--on-accent);}
+.btn.ghost{background:transparent;border:1px solid var(--line-2);color:var(--ink-2);}
+.btn.quiet{background:transparent;color:var(--ink-3);padding-inline:8px;font-size:12.5px;}
+
+.notefoot{
+  font-family:var(--mono);font-size:10px;letter-spacing:.03em;
+  color:var(--ink-3);margin-top:10px;line-height:1.6;
+}
+.lowsig{
+  display:flex;gap:9px;align-items:flex-start;
+  border:1px solid var(--warn);border-radius:9px;
+  padding:10px 12px;margin-bottom:16px;
+  background:var(--surface-2);
+}
+.lowsig svg{flex:none;margin-top:2px;color:var(--warn);}
+.lowsig .lt{font-size:12.5px;font-weight:500;color:var(--warn);}
+.lowsig .ld{font-size:12px;color:var(--ink-2);font-weight:300;line-height:1.7;margin-top:2px;}
+
+/* ---------- shared chat ---------- */
+.row{display:flex;margin-bottom:11px;}
+.row.mine{justify-content:flex-end;}
+.msg{
+  max-width:80%;
+  padding:9px 13px;
+  border-radius:13px;
+  font-size:14.5px;line-height:1.65;
+  border:1px solid transparent;
+}
+.msg .who{
+  font-family:var(--mono);font-size:10px;letter-spacing:.05em;
+  opacity:.72;margin-bottom:3px;
+}
+.msg.from-A{background:var(--a-tint);border-color:var(--a-edge);color:var(--ink);border-bottom-left-radius:4px;}
+.msg.from-B{background:var(--b-tint);border-color:var(--b-edge);color:var(--ink);border-bottom-left-radius:4px;}
+.row.mine .msg{border-bottom-right-radius:4px;border-bottom-left-radius:13px;}
+.msg .via{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;
+  opacity:.6;margin-top:5px;display:flex;align-items:center;gap:4px;
+}
+.nudge{
+  border-left:2px solid var(--med);
+  background:var(--med-tint);
+  padding:11px 14px;border-radius:0 9px 9px 0;
+  margin:18px 0 4px;
+}
+.nudge .h{font-size:13px;font-weight:500;}
+.nudge .d{font-size:12.5px;color:var(--ink-2);font-weight:300;margin-top:3px;line-height:1.65;}
+
+/* ---------- AI panel ---------- */
+.sources{
+  display:flex;flex-wrap:wrap;gap:6px 10px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.03em;
+  color:var(--ink-3);
+  padding:9px 12px;
+  border:1px dashed var(--line-2);
+  border-radius:9px;
+  margin-bottom:18px;
+}
+.sources b{color:var(--ink-2);font-weight:500;}
+.ask{
+  margin-left:auto;max-width:78%;
+  background:var(--surface-2);border:1px solid var(--line);
+  padding:10px 14px;border-radius:13px 13px 4px 13px;
+  font-size:14.5px;line-height:1.65;
+  margin-bottom:20px;
+}
+.reply{margin-bottom:26px;}
+.reply-head{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--ink-3);margin-bottom:12px;
+}
+.reply-head .mark{
+  width:18px;height:18px;border-radius:5px;
+  border:1px solid var(--line-2);
+  display:grid;place-items:center;color:var(--ink-2);
+}
+.seg-block{margin-bottom:16px;padding-left:14px;border-left:2px solid var(--line);}
+.seg-block.you{border-left-color:var(--me);}
+.seg-block.them{border-left-color:var(--them);}
+.seg-block h4{
+  margin:0 0 5px;
+  font-size:11px;font-family:var(--mono);letter-spacing:.07em;
+  color:var(--ink-3);font-weight:500;text-transform:uppercase;
+}
+.seg-block.you h4{color:var(--me);}
+.seg-block.them h4{color:var(--them);}
+.seg-block p{margin:0;font-size:14.5px;line-height:1.8;color:var(--ink);}
+
+.draftcard{
+  margin-top:18px;
+  border:1px solid var(--line-2);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.draftcard .dh{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 13px;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-3);
+}
+.draftcard .dq{
+  padding:14px 15px;
+  font-family:var(--serif);font-size:15.5px;line-height:1.9;
+}
+.draftcard .da{padding:0 13px 13px;display:flex;gap:8px;align-items:center;}
+
+.thinking{
+  font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+  letter-spacing:.03em;padding:10px 0;
+}
+.thinking::after{content:"";animation:dots 1.4s steps(4,end) infinite;}
+@keyframes dots{0%{content:"";}25%{content:"·";}50%{content:"··";}75%{content:"···";}}
+
+.empty{
+  text-align:center;padding:34px 20px;
+  color:var(--ink-3);font-size:13.5px;font-weight:300;line-height:1.9;
+}
+.empty .q{
+  display:inline-block;margin-top:10px;
+  font-family:var(--serif);font-size:15px;color:var(--ink-2);
+  border-bottom:1px solid var(--line-2);cursor:pointer;padding-bottom:2px;
+}
+
+/* ---------- modal ---------- */
+.mask{
+  position:fixed;inset:0;z-index:50;
+  background:rgba(17,19,24,.52);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+  animation:fade .18s ease;
+}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow-lift);
+  width:100%;max-width:440px;
+  max-height:88vh;overflow-y:auto;
+}
+.card-head{padding:18px 20px 14px;border-bottom:1px solid var(--line);}
+.card-head .kicker{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.card-head h3{margin:6px 0 0;font-size:17px;font-weight:500;letter-spacing:.01em;}
+.card-head p{margin:6px 0 0;font-size:12.5px;color:var(--ink-2);font-weight:300;line-height:1.7;}
+.card-body{padding:16px 20px;}
+.card-body .fieldlab{
+  font-family:var(--mono);font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;
+}
+.orig{
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:9px;padding:11px 13px;
+  font-size:14px;line-height:1.7;color:var(--ink-2);
+  margin-bottom:16px;
+}
+.willsee{
+  display:flex;flex-direction:column;gap:6px;
+  margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+}
+.willsee div{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--ink-2);font-weight:300;
+}
+.willsee svg{flex:none;color:var(--ink-3);}
+.card-foot{
+  padding:14px 20px 18px;
+  display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;
+}
+.keyin{
+  width:100%;padding:10px 12px;border-radius:9px;
+  border:1px solid var(--line);background:var(--surface-2);
+  color:var(--ink);font-family:var(--mono);font-size:12.5px;
+}
+
+/* ---------- onboarding ---------- */
+.app[data-screen="onboard"] nav.tabs,
+.app[data-screen="onboard"] .viewbar,
+.app[data-screen="onboard"] footer.foot{display:none;}
+.onb{padding:34px 4px 50px;max-width:400px;margin:0 auto;}
+.onb .step{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--ink-3);}
+.onb h2{font-family:var(--serif);font-size:23px;font-weight:500;margin:10px 0 12px;line-height:1.5;text-wrap:balance;}
+.onb p{color:var(--ink-2);font-size:14px;font-weight:300;line-height:1.85;margin:0 0 20px;}
+.onb input[type=text]{
+  width:100%;padding:11px 13px;border-radius:9px;border:1px solid var(--line);
+  background:var(--surface-2);color:var(--ink);font-family:var(--ui);font-size:15px;margin-bottom:18px;
+}
+.onb .btn{width:100%;padding:11px;}
+.code{
+  font-family:var(--mono);font-size:25px;letter-spacing:.2em;text-align:center;
+  padding:22px 10px;border:1px dashed var(--line-2);border-radius:11px;
+  background:var(--surface-2);margin-bottom:12px;
+}
+.promise{display:flex;gap:11px;padding:14px 0;border-bottom:1px solid var(--line);}
+.promise:last-of-type{border-bottom:none;}
+.promise svg{flex:none;margin-top:3px;color:var(--ink-3);}
+.promise .pt{font-size:14px;font-weight:500;}
+.promise .pd{font-size:12.5px;color:var(--ink-2);font-weight:300;line-height:1.75;margin-top:3px;}
+.demoNote{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:var(--ink-3);
+  border-top:1px solid var(--line);padding-top:12px;margin-top:24px;line-height:1.7;
+}
+/* ---------- unread ---------- */
+nav.tabs button .t{position:relative;}
+.badge-dot{position:absolute;top:0;right:-10px;width:7px;height:7px;border-radius:50%;background:var(--them);}
+/* ---------- relationship ---------- */
+.relrow{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);}
+.relrow:last-of-type{border-bottom:none;}
+.relrow .rt{font-size:13.5px;font-weight:500;}
+.relrow .rd{font-size:12px;color:var(--ink-2);font-weight:300;line-height:1.75;margin-top:4px;}
+.relrow .rd b{color:var(--ink);font-weight:500;}
+.sw{
+  flex:none;width:41px;height:24px;border-radius:999px;border:1px solid var(--line-2);
+  background:var(--surface-2);position:relative;cursor:pointer;margin-top:2px;
+  transition:background .18s,border-color .18s;
+}
+.sw::after{
+  content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--ink-3);transition:transform .18s,background .18s;
+}
+.sw[aria-pressed="true"]{background:var(--me);border-color:var(--me);}
+.sw[aria-pressed="true"]::after{transform:translateX(17px);background:var(--on-accent);}
+.btn.danger{border-color:var(--warn);color:var(--warn);}
+details.adv{margin-top:18px;border-top:1px solid var(--line);}
+details.adv summary{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-3);
+  cursor:pointer;padding:12px 0 8px;list-style:none;
+}
+details.adv summary::-webkit-details-marker{display:none;}
+details.adv summary::before{content:"＋ ";}
+details.adv[open] summary::before{content:"－ ";}
+
+/* 可点击的授权行 */
+.willsee .hint{
+  font-family:var(--mono);font-size:10px;letter-spacing:.03em;
+  color:var(--ink-3);margin-bottom:2px;
+}
+.willsee button.wrow{
+  display:flex;align-items:center;gap:9px;width:100%;
+  background:transparent;border:1px solid transparent;border-radius:8px;
+  padding:8px;margin-inline:-8px;cursor:pointer;text-align:left;
+  font-family:var(--ui);font-size:12px;font-weight:300;color:var(--ink-2);
+  transition:background .15s,color .15s;
+}
+.willsee button.wrow:hover{background:var(--surface-2);}
+.willsee button.wrow .ic{display:grid;place-items:center;flex:none;color:var(--ink-3);}
+.willsee button.wrow b{font-weight:500;}
+.willsee button.wrow[aria-pressed="true"]{color:var(--me);background:var(--surface-2);}
+.willsee button.wrow[aria-pressed="true"] .ic{color:var(--me);}
+
+/* 勾选要开放的日记 */
+.pick{
+  margin:2px 0 6px 25px;padding-left:13px;
+  border-left:1px solid var(--line-2);
+}
+.pickrow{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:8px 0;cursor:pointer;border-bottom:1px solid var(--line);
+}
+.pickrow:last-of-type{border-bottom:none;}
+.pickrow input{margin-top:3px;flex:none;accent-color:var(--me);}
+.pickrow .pm{min-width:0;}
+.pickrow .stamp{display:block;}
+.pickrow .ex{
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  font-size:12.5px;color:var(--ink-2);font-weight:300;line-height:1.6;margin-top:3px;
+}
+.pick .morebtn{margin-top:10px;font-size:12px;padding:6px 13px;}
+.pick .locked{
+  font-family:var(--mono);font-size:10px;color:var(--ink-3);
+  letter-spacing:.03em;margin-top:10px;line-height:1.6;
+}
+.fileempty{
+  text-align:center;color:var(--ink-3);font-size:13px;font-weight:300;
+  line-height:1.9;padding:26px 10px;
+}
+.filegroup{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3);
+  padding-top:16px;padding-bottom:2px;
+}
+.filegroup:first-child{padding-top:0;}
+
+/* 对方主动开放给你的内容 */
+.incoming{
+  border:1px solid var(--them);border-radius:11px;
+  margin-bottom:14px;overflow:hidden;background:var(--surface);
+}
+.incoming summary{
+  display:flex;align-items:center;gap:9px;padding:11px 13px;cursor:pointer;
+  font-size:12.5px;color:var(--ink);background:var(--surface-2);list-style:none;
+}
+.incoming summary::-webkit-details-marker{display:none;}
+.incoming summary svg{flex:none;color:var(--them);}
+.incoming summary .sp{flex:1;font-weight:300;}
+.incoming summary .sp b{font-weight:500;}
+.incoming summary .more{font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+.incoming:not([open]) summary .more::after{content:"展开";}
+.incoming[open] summary .more::after{content:"收起";}
+.inbody{padding:2px 15px 14px;border-top:1px solid var(--line);}
+.inbody .ie{padding:13px 0;border-bottom:1px solid var(--line);}
+.inbody .ie:last-of-type{border-bottom:none;}
+.inbody .ie .stamp{display:block;margin-bottom:5px;}
+.inbody .ie .tx{font-family:var(--serif);font-size:14.5px;line-height:1.85;white-space:pre-wrap;}
+.inbody .note{
+  font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:var(--ink-3);
+  border-top:1px solid var(--line);padding-top:11px;line-height:1.75;
+}
+
+footer.foot{
+  border-top:1px solid var(--line);
+  padding:14px 22px 22px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;
+  color:var(--ink-3);
+}
+.badge{
+  border:1px solid var(--line);border-radius:5px;
+  padding:2px 7px;
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <div class="brandrow">
+      <div>
+        <h1 class="wordmark">之间</h1>
+        <div class="tagline">两个人之间，需要一个不站队的翻译者。</div>
+      </div>
+      <div class="topright">
+        <button class="iconbtn" id="btnFiles" title="文件空间" aria-label="文件空间">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7.5A2 2 0 0 1 5 5.5h3.6L11 8h8a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11.5h18"/></svg>
+        </button>
+        <button class="iconbtn" id="btnSettings" title="关系与隐私" aria-label="关系与隐私">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09c0 .67.4 1.27 1.02 1.51H21a2 2 0 1 1 0 4h-.09c-.67 0-1.27.4-1.51 1.02z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="viewbar">
+      <span class="lab">演示视角</span>
+      <div class="seg" role="group" aria-label="切换演示视角">
+        <button id="toA"><span class="dot"></span>阿岚</button>
+        <button id="toB"><span class="dot"></span>小时</button>
+      </div>
+      <span class="lab" id="viewHint"></span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="diary"><span class="t">日记本</span><span class="s">仅自己</span></button>
+    <button role="tab" data-tab="shared"><span class="t">共同沟通</span><span class="s">双方可见</span></button>
+    <button role="tab" data-tab="ai"><span class="t">与 AI 对话</span><span class="s">仅你与AI</span></button>
+  </nav>
+
+  <main id="main"></main>
+
+  <footer class="foot">
+    <span class="badge" id="modeBadge">演示模式</span>
+    <span id="modeNote">回复为预设脚本，无需联网</span>
+    <span class="spacer"></span>
+    <button class="btn quiet" id="btnOnboard">看开场流程</button>
+    <button class="btn quiet" id="btnReset">重置演示</button>
+  </footer>
+</div>
+<div id="modal"></div>
+
+<script>
+/* ============ 常量 ============ */
+const NAME = { A:'阿岚', B:'小时' };
+const MOODS = ['疲惫','委屈','生气','焦虑','平静','松了口气'];
+const other = u => u === 'A' ? 'B' : 'A';
+
+const ICON = {
+  lock:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  eye:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  eyeoff:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.9 17.9A10.1 10.1 0 0 1 12 19c-7 0-11-7-11-7a18.4 18.4 0 0 1 5.1-5.9M9.9 4.2A10.1 10.1 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.2 3.2M1 1l22 22"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',
+  two:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="10" r="2.6"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/></svg>',
+  send:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>',
+  mediator:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h4M16 12h4"/><circle cx="12" cy="12" r="2.6"/></svg>'
+};
+
+/* ============ 初始状态 ============ */
+function seed(){
+  return {
+    user:'A',
+    tab:'diary',
+    screen:'app',
+    onbStep:1,
+    apiKey:'',
+    inviteCode:'ZJ-4K9T',
+    pairedDays:47,
+    consent:{ A:true, B:true },
+    seen:{ A:3, B:3 },
+    grants:{ A:{ diary:[], threads:[] }, B:{ diary:[], threads:[] } },
+    seenShares:{ A:0, B:0 },
+    diary:{
+      A:[
+        { id:'a1', ts:'9月3日 22:14', mood:'疲惫', aiRead:true, img:null,
+          text:'今天下班很累，进门看到台面上的碗还在那儿，心里一下就堵住了。\n我知道我不是嫌TA懒。我是觉得自己回到家像在上第二个班，而这个班没有下班时间。' },
+        { id:'a2', ts:'8月28日 23:40', mood:'平静', aiRead:true, img:null,
+          text:'今天没吵架。TA买了我上次随口提过的那种酸奶。其实我看到的时候挺开心的，但当时在忙，没说。' }
+      ],
+      B:[
+        { id:'b1', ts:'9月3日 23:02', mood:'委屈', aiRead:true, img:null,
+          text:'阿岚今天语气有点冲。我当时很委屈——我下午改方案改到崩溃，脑子是空的，根本没顾上碗。\n但我没解释，直接就沉默了。我知道我一沉默TA会更生气，可我当时真的一个字都组织不出来。' },
+        { id:'b2', ts:'8月30日 21:10', mood:'焦虑', aiRead:true, img:null,
+          text:'又要开始新一轮汇报了。我最近很怕回家还要处理情绪，所以经常故意在公司多待半小时。这件事我没跟TA说过。' }
+      ]
+    },
+    shared:[
+      { from:'A', text:'你能不能至少把碗放进水槽里，我真的很累了还要收拾。', ts:'9月3日 21:40' },
+      { from:'B', text:'……', ts:'9月3日 21:41' },
+      { from:'A', text:'算了。', ts:'9月3日 21:41' }
+    ],
+    threads:{ A:[], B:[] }
+  };
+}
+let S = seed();
+
+const esc = s => (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ============ 渲染 ============ */
+function render(){
+  const root = document.documentElement;
+  root.style.setProperty('--me',   `var(--${S.user === 'A' ? 'a' : 'b'})`);
+  root.style.setProperty('--them', `var(--${S.user === 'A' ? 'b' : 'a'})`);
+  document.getElementById('app').dataset.screen = S.screen;
+
+  if(S.screen === 'onboard'){
+    document.getElementById('main').innerHTML = viewOnboard();
+    bindOnboard();
+    return;
+  }
+  if(S.tab === 'shared') S.seen[S.user] = S.shared.length;
+  if(S.tab === 'ai') S.seenShares[S.user] = incomingN(S.user);
+
+  const tA = document.getElementById('toA'), tB = document.getElementById('toB');
+  tA.toggleAttribute('data-on', false); tB.toggleAttribute('data-on', false);
+  (S.user === 'A' ? tA : tB).setAttribute('data-on', S.user);
+  document.getElementById('viewHint').textContent = `你正在以 ${NAME[S.user]} 的身份使用`;
+
+  const dots = {
+    shared: unread(S.user),
+    ai: incomingN(S.user) - (S.seenShares[S.user] || 0)
+  };
+  document.querySelectorAll('nav.tabs button').forEach(b => {
+    b.setAttribute('aria-selected', b.dataset.tab === S.tab);
+    const t = b.querySelector('.t');
+    t.querySelectorAll('.badge-dot').forEach(x => x.remove());
+    if(dots[b.dataset.tab] > 0)
+      t.insertAdjacentHTML('beforeend', '<span class="badge-dot"></span>');
+  });
+
+  const m = document.getElementById('main');
+  m.innerHTML = S.tab === 'diary' ? viewDiary() : S.tab === 'shared' ? viewShared() : viewAI();
+  bind();
+}
+
+/* AI 对另一方到底掌握了多少 */
+function partnerData(u){
+  const p = other(u);
+  const open = S.diary[p].filter(e => e.aiRead).length;
+  if(S.grants[p].diary.some(x => x.open)) return { known:true, why:'granted', open };
+  if(!S.consent[p]) return { known:false, why:'closed', open:0 };
+  if(open === 0)    return { known:false, why:'empty',  open:0 };
+  return { known:true, why:'ok', open };
+}
+
+/* 单边信息时，AI 不猜，而是承认，并把问题交回给两个人 */
+function unilateral(u){
+  const p = NAME[other(u)];
+  const why = partnerData(u).why;
+  return {
+    them:`这里我得说实话：关于${p}，我手上几乎没有东西。${
+      why === 'closed' ? `${p}关掉了让我读日记的授权，` : `${p}还没有写过日记，`
+    }所以我对TA的了解，只剩下你们两个人摊在明面上说过的那几句话。我当然可以顺着你的讲法去猜TA在想什么 —— 但那更像是在替TA编一个说得通的理由，不是真的理解TA。我不想那样做，因为猜错的代价会落在你们两个人身上。`,
+    stuck:`你现在缺的不是分析，是${p}本人的一句话。与其让我替TA回答，不如你直接去「共同沟通」那边问TA。诀窍是：问一个TA不需要立刻辩解的问题 —— "你当时在想什么"比"你为什么要那样"好接得多。`,
+    draft:`有件事我想问你，你可以慢慢回，也可以先不回：那天你没说话的时候，心里在想什么？我不是要你解释，就是想知道。`
+  };
+}
+
+/* ---- 开放清单 ---- */
+function entryById(owner, eid){ return S.diary[owner].find(e => e.id === eid); }
+function excerpt(t, n = 46){ t = (t||'').replace(/\s+/g,' '); return t.length > n ? t.slice(0,n) + '…' : t; }
+
+/* 对方开放给我、且此刻仍开着的东西 */
+function incomingItems(u){
+  const o = other(u), g = S.grants[o], items = [];
+  const d = g.diary.filter(x => x.open).map(x => entryById(o, x.eid)).filter(Boolean);
+  if(d.length) items.push({ type:'diary', from:o, at:g.diary.filter(x=>x.open)[0].at, entries:d });
+  g.threads.filter(x => x.open).forEach(t => items.push({ type:'thread', from:o, at:t.at, turns:t.turns }));
+  return items;
+}
+function incomingN(u){
+  const g = S.grants[other(u)];
+  return g.diary.filter(x => x.open).length + g.threads.filter(x => x.open).length;
+}
+
+function unread(u){
+  return S.shared.slice(S.seen[u] || 0).filter(m => m.from !== u).length;
+}
+
+/* ---- 开场：两个人怎么变成"一对" ---- */
+function viewOnboard(){
+  const p = NAME[other(S.user)];
+  if(S.onbStep === 1) return `
+    <div class="onb">
+      <div class="step">第 1 步 / 共 3 步</div>
+      <h2>先说，怎么称呼你</h2>
+      <p>这个名字只有你和另外那个人会看到。用你们平时叫彼此的那个称呼就好，不用真名。</p>
+      <input type="text" id="obName" placeholder="比如：阿岚" value="${NAME[S.user]}">
+      <button class="btn me" id="obNext">下一步</button>
+      <div class="demoNote">这是演示。正式版本里，这一步会同时帮你创建账号。</div>
+    </div>`;
+
+  if(S.onbStep === 2) return `
+    <div class="onb">
+      <div class="step">第 2 步 / 共 3 步</div>
+      <h2>把这串码发给对方</h2>
+      <p>「之间」一个人用不起来。对方输入这串码之后，你们才算连上 —— 在那之前，你写的任何东西都不会去到任何地方。</p>
+      <div class="code">${S.inviteCode}</div>
+      <button class="btn ghost" id="obCopy">复制邀请码</button>
+      <p style="margin-top:20px;">对方打开「之间」，在首页选「我收到了邀请码」，填进去就可以了。</p>
+      <div class="waitrow" style="display:flex;align-items:center;gap:9px;color:var(--ink-3);font-size:13px;margin-bottom:18px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--them);opacity:.5;"></span>
+        正在等待对方接受……
+      </div>
+      <button class="btn me" id="obNext">（演示）对方已经接受</button>
+      <div class="demoNote">正式版本里这一步会一直等，直到对方真的填了码。</div>
+    </div>`;
+
+  return `
+    <div class="onb">
+      <div class="step">第 3 步 / 共 3 步</div>
+      <h2>连上了。开始之前，有三件事想先讲清楚</h2>
+      <div class="promise">${ICON.lock}<div>
+        <div class="pt">日记是你一个人的</div>
+        <div class="pd">AI 会读它，用来理解你是个怎样的人。但${p}永远看不到里面的任何一句原话，一句都不行。每一篇你都可以单独关掉。</div>
+      </div></div>
+      <div class="promise">${ICON.two}<div>
+        <div class="pt">共同沟通是你们两个人的</div>
+        <div class="pd">AI 会读，因为它需要知道发生了什么。但它不会在那里出现、不会插话、更不会评理谁对谁错。</div>
+      </div></div>
+      <div class="promise">${ICON.send}<div>
+        <div class="pt">发送这个动作，永远由你来做</div>
+        <div class="pd">AI 可以帮你把一句话换个说法，但它不会替你按下发送。每一句要去到${p}那里的话，都要经过你点头。</div>
+      </div></div>
+      <button class="btn me" id="obNext" style="margin-top:24px;">我知道了，开始</button>
+    </div>`;
+}
+
+function bindOnboard(){
+  const nx = document.getElementById('obNext');
+  const cp = document.getElementById('obCopy');
+  if(cp) cp.addEventListener('click', () => {
+    navigator.clipboard?.writeText(S.inviteCode);
+    cp.textContent = '已复制';
+    setTimeout(() => cp.textContent = '复制邀请码', 1400);
+  });
+  nx.addEventListener('click', () => {
+    const nameIn = document.getElementById('obName');
+    if(nameIn && nameIn.value.trim()) NAME[S.user] = nameIn.value.trim();
+    if(S.onbStep < 3){ S.onbStep++; }
+    else { S.screen = 'app'; S.tab = 'diary'; }
+    render();
+  });
+}
+
+function privacy(h, d, icon){
+  return `<div class="privacy">${icon}<div><div class="h">${h}</div><div class="d">${d}</div></div></div>`;
+}
+
+/* ---- 日记本 ---- */
+function viewDiary(){
+  const list = S.diary[S.user];
+  const readable = list.filter(e => e.aiRead).length;
+  const entries = list.map((e,i) => `
+    <article class="entry">
+      <div class="entry-head">
+        <span class="stamp">${esc(e.ts)}</span>
+        ${e.mood ? `<span class="mood" style="color:var(--me)">${esc(e.mood)}</span>` : ''}
+        <button class="accessbtn" data-access="${i}" data-private="${!e.aiRead}">
+          ${e.aiRead ? ICON.eye + 'AI 可读' : ICON.eyeoff + '仅自己'}
+        </button>
+      </div>
+      <div class="entry-body">${esc(e.text)}</div>
+      ${e.img ? `<img src="${e.img}" alt="日记配图">` : ''}
+    </article>`).join('');
+
+  return `
+    ${privacy('只有你能看到这一页',
+      `AI 会读这里，用来理解你是一个怎样的人 —— 但它不会在这里说话，也不会把任何一句原话透给${NAME[other(S.user)]}。每篇日记都可以单独关掉；右上角还能一次性关掉"帮${NAME[other(S.user)]}理解我"这件事。`,
+      ICON.lock)}
+    <div class="readline"><span>AI 已阅读 ${readable} / ${list.length} 篇 · 未作回应</span><span class="bar"></span></div>
+    ${entries || `<div class="empty">
+        这里还是空的。<br>
+        不用写得完整，也不用写给谁看 ——<br>
+        写下今天真正想说、但最后没说出口的那一句就够了。
+      </div>`}
+    <div class="composer">
+      <h4>写今天</h4>
+      <textarea id="dIn" placeholder="不用组织语言，写乱一点也没关系……"></textarea>
+      <div class="moodpick" id="moodPick">
+        ${MOODS.map(x => `<button data-mood="${x}" aria-pressed="false">${x}</button>`).join('')}
+      </div>
+      <div class="crow">
+        <label class="filebtn">＋ 图片<input type="file" id="dImg" accept="image/*"></label>
+        <img id="dPrev" class="thumb" style="display:none" alt="">
+        <span class="spacer"></span>
+        <button class="btn me" id="dSave">保存</button>
+      </div>
+      <div class="notefoot">照片只留在你这里。AI 不看图，只读文字。</div>
+    </div>`;
+}
+
+/* ---- 共同沟通 ---- */
+function viewShared(){
+  const rows = S.shared.map(msg => `
+    <div class="row ${msg.from === S.user ? 'mine' : ''}">
+      <div class="msg from-${msg.from}">
+        <div class="who">${NAME[msg.from]} · ${esc(msg.ts)}</div>
+        ${esc(msg.text)}
+        ${msg.softened ? `<div class="via">${ICON.mediator} 经 AI 改写后发送</div>` : ''}
+      </div>
+    </div>`).join('');
+
+  const stuck = isStuck();
+  return `
+    ${privacy('这一页你们两个人都能看到',
+      `AI 会读这里，用来了解事情的经过。但它不会在这里出现、不会插话、不会评理 —— 这个空间属于你们两个人。`,
+      ICON.two)}
+    ${rows}
+    ${stuck ? `
+      <div class="nudge">
+        <div class="h">这段对话停在这里了。</div>
+        <div class="d">AI 不会在这里说话。如果你想弄清楚刚才到底发生了什么，可以去旁边的房间单独聊。</div>
+        <div class="crow"><span class="spacer"></span><button class="btn ghost" id="goAI">去和 AI 聊聊</button></div>
+      </div>` : ''}
+    <div class="composer">
+      <h4>直接对 ${NAME[other(S.user)]} 说</h4>
+      <textarea id="sIn" placeholder="想说什么就写什么，情绪也可以带着……"></textarea>
+      <div class="crow">
+        <span class="spacer"></span>
+        <button class="btn me" id="sSend">发送</button>
+      </div>
+    </div>`;
+}
+
+function isStuck(){
+  const last = S.shared.slice(-3);
+  return last.some(m => /^…|^\.\.\.|算了|随便|无所谓/.test(m.text));
+}
+
+/* ---- 与 AI 对话 ---- */
+function viewAI(){
+  const th = S.threads[S.user];
+  const mine = S.diary[S.user].filter(e => e.aiRead).length;
+  const theirs = S.diary[other(S.user)].filter(e => e.aiRead).length;
+  const pd = partnerData(S.user);
+
+  const body = th.map(m => m.role === 'user'
+    ? `<div class="ask">${esc(m.text)}</div>`
+    : replyHTML(m)).join('');
+
+  return `
+    ${privacy('只有你和 AI 在这里',
+      `${NAME[other(S.user)]} 看不到这一页。AI 会结合你的日记、你们说过的话，以及从${NAME[other(S.user)]}日记里读到的<b>表达习惯</b>（不是内容）来回应你。任何要发给对方的话，都要经过你确认。`,
+      ICON.lock)}
+    ${incomingItems(S.user).map(incomingHTML).join('')}
+    ${pd.known ? '' : `<div class="lowsig">${ICON.eyeoff}<div>
+      <div class="lt">AI 对${NAME[other(S.user)]}了解得很少</div>
+      <div class="ld">它不会因此就开始猜。接下来的建议里，关于${NAME[other(S.user)]}的那一段，它会直说自己不知道，并且倾向于让你去问本人。</div>
+    </div>`}
+    <div class="sources">
+      <span>AI 手上有：</span>
+      <span><b>你的日记 ${mine} 篇</b></span>
+      ${S.grants[other(S.user)].diary.filter(x => x.open).length
+        ? `<span><b style="color:var(--them)">${NAME[other(S.user)]}主动开放的 ${S.grants[other(S.user)].diary.filter(x=>x.open).length} 篇日记原文</b></span>` : ''}
+      <span>${pd.known
+        ? `<b>${NAME[other(S.user)]}的表达风格</b>（来自 ${theirs} 篇，不含原文）`
+        : `<b style="color:var(--warn)">${NAME[other(S.user)] + (pd.why === 'closed' ? '已关闭这项授权' : '还没有写过日记')}</b>`}</span>
+      <span><b>共同对话 ${S.shared.length} 条</b></span>
+    </div>
+    ${body || `<div class="empty">
+        AI 不会替你们判断谁对谁错。<br>它只做一件事：把两边的情绪翻译成对方能听懂的话。
+        <br><span class="q" id="seedQ">${S.user === 'A' ? '"TA为什么突然就不说话了？"' : '"我该怎么跟TA解释我不是不在乎？"'}</span>
+      </div>`}
+    <div id="think"></div>
+    <div class="composer">
+      <h4>问 AI</h4>
+      <textarea id="aIn" placeholder="发生了什么、你现在的感觉、你卡在哪里……"></textarea>
+      <div class="crow">
+        <span class="spacer"></span>
+        <button class="btn" id="aSend">发送</button>
+      </div>
+    </div>`;
+}
+
+function replyHTML(m){
+  const seg = (cls, h, t) => t ? `<div class="seg-block ${cls}"><h4>${h}</h4><p>${esc(t)}</p></div>` : '';
+  const draft = m.draft ? `
+    <div class="draftcard">
+      <div class="dh">${ICON.lock} 待你确认 · 尚未发送</div>
+      <div class="dq">${esc(m.draft)}</div>
+      <div class="da">
+        <span class="spacer"></span>
+        <button class="btn me" data-draft="${esc(m.draft)}">${ICON.send} 查看并发送给 ${NAME[other(S.user)]}</button>
+      </div>
+    </div>` : '';
+  return `
+    <div class="reply">
+      <div class="reply-head"><span class="mark">${ICON.mediator}</span>之间 · 不站队的第三个人</div>
+      ${seg('', '发生了什么', m.observe)}
+      ${seg('you', `你这边`, m.you)}
+      ${seg('them', `${NAME[other(S.user)]}那边`, m.them)}
+      ${seg('', '真正卡住的地方', m.stuck)}
+      ${draft}
+    </div>`;
+}
+
+/* ============ 交互 ============ */
+function bind(){
+  const q = id => document.getElementById(id);
+
+  // 日记
+  if(q('dSave')){
+    let img = null, mood = null;
+    q('dImg').addEventListener('change', e => {
+      const f = e.target.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = () => { img = r.result; const p = q('dPrev'); p.src = img; p.style.display = 'inline-block'; };
+      r.readAsDataURL(f);
+    });
+    q('moodPick').addEventListener('click', e => {
+      const b = e.target.closest('[data-mood]'); if(!b) return;
+      const on = b.getAttribute('aria-pressed') === 'true';
+      q('moodPick').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed', String(!on));
+      mood = on ? null : b.dataset.mood;
+    });
+    q('dSave').addEventListener('click', () => {
+      const t = q('dIn').value.trim();
+      if(!t && !img) return;
+      S.diary[S.user].unshift({ id:'e'+Date.now(), text:t, img, mood, aiRead:true, ts:'刚刚' });
+      render();
+    });
+  }
+  document.querySelectorAll('[data-access]').forEach(b => b.addEventListener('click', () => {
+    const e = S.diary[S.user][+b.dataset.access];
+    e.aiRead = !e.aiRead;
+    render();
+  }));
+
+  // 共同沟通
+  if(q('sSend')) q('sSend').addEventListener('click', () => {
+    const t = q('sIn').value.trim(); if(!t) return;
+    if(isHeated(t)) openSoften(t);
+    else { pushShared(t, false); render(); }
+  });
+  if(q('goAI')) q('goAI').addEventListener('click', () => { S.tab='ai'; render(); });
+
+  // AI
+  if(q('aSend')) q('aSend').addEventListener('click', askAI);
+  if(q('seedQ')) q('seedQ').addEventListener('click', () => {
+    q('aIn').value = q('seedQ').textContent.replace(/[""]/g,'');
+    q('aIn').focus();
+  });
+  document.querySelectorAll('[data-draft]').forEach(b =>
+    b.addEventListener('click', () => openConfirm(b.dataset.draft)));
+}
+
+function pushShared(text, softened){
+  S.shared.push({ from:S.user, text, ts:'刚刚', softened });
+}
+
+/* ---- 情绪词识别 ---- */
+const HEATED = [/你总是/,/你从来/,/根本不/,/算了/,/随便你/,/无所谓/,/你就是/,/懒/,/有意思吗/,/爱怎样怎样/,/？？/,/！！/,/你能不能/];
+const isHeated = t => HEATED.some(r => r.test(t));
+
+/* ---- 示例改写（演示模式） ---- */
+function soften(t){
+  if(/算了|随便你|无所谓|爱怎样怎样/.test(t))
+    return '我刚才想说"算了"，但其实我不是不在乎 —— 我是怕再说下去我们会吵起来。这件事我们能晚点再聊吗？';
+  if(/你总是|你从来|根本不/.test(t))
+    return '有件事我反复在意，我知道我刚才的说法像在翻旧账。我想说的其实是：这种时候我会觉得自己没被顾到，而不是想数落你。';
+  if(/你能不能|你就不能/.test(t))
+    return '有件事想请你帮个忙。我犹豫了一下才开口，因为我知道你最近也很累 —— 但我今天真的有点撑不住了。';
+  if(/懒|什么都不干|不做事/.test(t))
+    return '我现在情绪有点上来了，先把话说慢一点：我在意的不是这件事本身，是我好像一直在一个人扛，而你没看见。';
+  return `我先把情绪放一放再说：${t.replace(/[！!？?]+$/,'')}。说这些不是想怪你，是想让你知道我现在的状态。`;
+}
+
+/* ============ 弹窗 ============ */
+const modal = () => document.getElementById('modal');
+const closeModal = () => modal().innerHTML = '';
+
+function shell(kicker, title, desc, body, foot){
+  modal().innerHTML = `
+    <div class="mask" id="mask">
+      <div class="card" role="dialog" aria-modal="true">
+        <div class="card-head">
+          <div class="kicker">${kicker}</div>
+          <h3>${title}</h3>
+          <p>${desc}</p>
+        </div>
+        <div class="card-body">${body}</div>
+        <div class="card-foot">${foot}</div>
+      </div>
+    </div>`;
+  document.getElementById('mask').addEventListener('click', e => { if(e.target.id === 'mask') closeModal(); });
+}
+
+/* 直接发送时的缓冲 —— 这是"翻译器"真正介入的地方 */
+function openSoften(orig){
+  shell('发送前', '这句话，要原样发出去吗？',
+    `AI 读到这句话里带着情绪。它不评判你说得对不对 —— 只是把同一件事换一种${NAME[other(S.user)]}更容易接住的说法。两个版本你都可以选。`,
+    `<div class="fieldlab">你写的</div>
+     <div class="orig">${esc(orig)}</div>
+     <div class="fieldlab">AI 的另一种说法 · 可修改</div>
+     <textarea id="softText">${esc(soften(orig))}</textarea>`,
+    `<button class="btn ghost" id="sendRaw">仍然发原话</button>
+     <button class="btn me" id="sendSoft">发送这一版</button>`);
+
+  document.getElementById('sendRaw').addEventListener('click', () => {
+    pushShared(orig, false); closeModal(); render();
+  });
+  document.getElementById('sendSoft').addEventListener('click', () => {
+    const v = document.getElementById('softText').value.trim();
+    if(v) pushShared(v, true);
+    closeModal(); render();
+  });
+}
+
+/* AI 草稿的发送授权 */
+function shareRow(k){
+  return `<button class="wrow" type="button" data-share="${k}" aria-pressed="false">
+      <span class="ic">${ICON.eyeoff}</span>
+      <span class="tx">${shareLabel(k, false)}</span>
+    </button>`;
+}
+function shareLabel(k, on){
+  const p = NAME[other(S.user)];
+  if(k === 'diary')  return on
+    ? `<b>${p} 可以读你勾选的日记</b>（原文，随这句话一起过去）`
+    : `${p} <b>看不到</b>：你的日记`;
+  if(k === 'thread') return on
+    ? `<b>${p} 可以看到</b>你和 AI 的这段对话`
+    : `${p} <b>看不到</b>：你和 AI 的这段对话`;
+  return on
+    ? `<b>告诉 ${p}</b>：这句话是 AI 帮我起草的`
+    : `${p} <b>不会知道</b>这句话是 AI 帮你起草的`;
+}
+
+function openConfirm(draft){
+  const p = NAME[other(S.user)];
+  shell('发送授权', `${p} 将会看到这句话`,
+    '这句话会出现在「共同沟通」里，和你自己打字发过去没有区别。发送前你可以随意修改。',
+    `<div class="fieldlab">将发送的内容</div>
+     <textarea id="cText">${esc(draft)}</textarea>
+     <div class="willsee">
+       <div class="hint">默认全部关闭。点一下眼睛，可以主动打开给${p}看。</div>
+       ${shareRow('diary')}
+       <div class="pick" id="diaryPick" hidden>
+         <div class="hint">先帮你勾了最近的三篇 —— 它们离你们现在这件事最近。</div>
+         <div id="pickList"></div>
+         <button class="btn ghost morebtn" type="button" id="pickMore">勾选更多日记</button>
+         <div class="locked" id="pickLocked"></div>
+       </div>
+       ${shareRow('thread')}
+       ${shareRow('mark')}
+     </div>`,
+    `<button class="btn ghost" id="cCancel">先不发</button>
+     <button class="btn me" id="cOk">确认发送</button>`);
+
+  const openable = S.diary[S.user].filter(e => e.aiRead);
+  const hidden = S.diary[S.user].length - openable.length;
+  const picked = new Set(openable.slice(0,3).map(e => e.id));
+  let showAll = false;
+
+  function renderPick(){
+    const shown = showAll ? openable : openable.slice(0,3);
+    const list = document.getElementById('pickList');
+    list.innerHTML = shown.map(e => `
+      <label class="pickrow">
+        <input type="checkbox" data-eid="${e.id}" ${picked.has(e.id) ? 'checked' : ''}>
+        <span class="pm">
+          <span class="stamp">${esc(e.ts)}${e.mood ? ' · ' + esc(e.mood) : ''}</span>
+          <span class="ex">${esc(excerpt(e.text, 64))}</span>
+        </span>
+      </label>`).join('') || '<div class="locked">你还没有任何 AI 可读的日记。</div>';
+    list.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+      cb.checked ? picked.add(cb.dataset.eid) : picked.delete(cb.dataset.eid);
+    }));
+    document.getElementById('pickMore').hidden = showAll || openable.length <= 3;
+    document.getElementById('pickLocked').textContent = hidden
+      ? `另有 ${hidden} 篇标为「仅自己」，不在这里列出 —— 那是你连 AI 都没让读的。`
+      : '';
+  }
+  document.getElementById('pickMore').addEventListener('click', () => { showAll = true; renderPick(); });
+  renderPick();
+
+  document.querySelectorAll('[data-share]').forEach(b => b.addEventListener('click', () => {
+    const on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', String(on));
+    b.querySelector('.ic').innerHTML = on ? ICON.eye : ICON.eyeoff;
+    b.querySelector('.tx').innerHTML = shareLabel(b.dataset.share, on);
+    if(b.dataset.share === 'diary') document.getElementById('diaryPick').hidden = !on;
+  }));
+
+  document.getElementById('cCancel').addEventListener('click', closeModal);
+  document.getElementById('cOk').addEventListener('click', () => {
+    const on = k => document.querySelector(`[data-share="${k}"]`).getAttribute('aria-pressed') === 'true';
+    const v = document.getElementById('cText').value.trim();
+
+    if(v) pushShared(v, on('mark'));
+
+    if(on('diary')){
+      const g = S.grants[S.user].diary;
+      picked.forEach(eid => {
+        const had = g.find(x => x.eid === eid);
+        if(had) had.open = true; else g.push({ eid, at:'刚刚', open:true });
+      });
+    }
+    if(on('thread')) S.grants[S.user].threads.push({
+      id:'t' + Date.now(), at:'刚刚', open:true,
+      turns:S.threads[S.user].map(m => ({
+        role:m.role,
+        text:m.role === 'user' ? m.text : [m.observe, m.you, m.them, m.stuck].filter(Boolean).join('\n\n')
+      }))
+    });
+    closeModal(); S.tab = 'shared'; render();
+  });
+}
+
+/* 对方主动开放过来的东西 */
+function incomingHTML(x){
+  const from = NAME[x.from];
+  if(x.type === 'diary') return `
+    <details class="incoming">
+      <summary>${ICON.eye}<span class="sp"><b>${from}</b> 把TA的 ${x.entries.length} 篇日记开放给你了 · ${esc(x.at)}</span><span class="more"></span></summary>
+      <div class="inbody">
+        ${x.entries.map(e => `<div class="ie">
+            <span class="stamp">${esc(e.ts)}${e.mood ? ' · ' + esc(e.mood) : ''}</span>
+            <div class="tx">${esc(e.text)}</div>
+          </div>`).join('')}
+        <div class="note">这是${from}自己按下开关打开的，不是 AI 透给你的。AI 现在也读到了这些原文，所以接下来它可以直接引用。${from}随时可以再关上。</div>
+      </div>
+    </details>`;
+  return `
+    <details class="incoming">
+      <summary>${ICON.eye}<span class="sp"><b>${from}</b> 把TA和 AI 的那段对话开放给你了 · ${esc(x.at)}</span><span class="more"></span></summary>
+      <div class="inbody">
+        ${x.turns.map(t => `<div class="ie">
+            <span class="stamp">${t.role === 'user' ? from + ' 问 AI' : 'AI 对' + from + '说'}</span>
+            <div class="tx">${esc(t.text)}</div>
+          </div>`).join('')}
+        <div class="note">${from}选择让你看见TA是怎么跟 AI 讲这件事的 —— 包括TA问了什么。</div>
+      </div>
+    </details>`;
+}
+
+/* 文件空间：管理已经开放出去的内容 */
+function openFiles(){
+  const p = NAME[other(S.user)];
+  const g = S.grants[S.user];
+
+  const drows = g.diary.map(x => {
+    const e = entryById(S.user, x.eid);
+    if(!e) return '';
+    return `<div class="relrow">
+        <div>
+          <div class="rt">${esc(e.ts)}${e.mood ? ' · ' + esc(e.mood) : ''}</div>
+          <div class="rd">${esc(excerpt(e.text, 52))}</div>
+        </div>
+        <div class="spacer"></div>
+        <button class="sw" data-rev="d|${e.id}" aria-pressed="${x.open}" aria-label="切换开放"></button>
+      </div>`;
+  }).join('');
+
+  const trows = g.threads.map(t => `
+    <div class="relrow">
+      <div>
+        <div class="rt">你和 AI 的一段对话</div>
+        <div class="rd">${esc(t.at)}开放 · 共 ${t.turns.length} 条往来。${esc(excerpt((t.turns[0]||{}).text || '', 44))}</div>
+      </div>
+      <div class="spacer"></div>
+      <button class="sw" data-rev="t|${t.id}" aria-pressed="${t.open}" aria-label="切换开放"></button>
+    </div>`).join('');
+
+  const has = drows || trows;
+  const openN = g.diary.filter(x => x.open).length + g.threads.filter(x => x.open).length;
+
+  shell('文件空间', `你开放给${p}的内容`,
+    has
+      ? `此刻有 <b>${openN}</b> 项开着。关掉之后${p}会立刻看不到 —— 已经读进去的东西你收不回来，但从这一刻起它不再出现在TA那边。`
+      : `你还没有开放过任何东西。在发送授权那一步点亮眼睛之后，开放的内容会出现在这里，随时可以关掉。`,
+    has
+      ? `${drows ? '<div class="filegroup">日记原文</div>' + drows : ''}
+         ${trows ? '<div class="filegroup">与 AI 的对话</div>' + trows : ''}`
+      : `<div class="fileempty">这里是空的。<br>你写下的每一个字，目前都还只在你自己这里。</div>`,
+    `<button class="btn ghost" id="fClose">关闭</button>`);
+
+  document.querySelectorAll('[data-rev]').forEach(b => b.addEventListener('click', () => {
+    const [kind, id] = b.dataset.rev.split('|');
+    const item = kind === 'd'
+      ? S.grants[S.user].diary.find(x => x.eid === id)
+      : S.grants[S.user].threads.find(x => x.id === id);
+    if(item) item.open = !item.open;
+    openFiles();
+  }));
+  document.getElementById('fClose').addEventListener('click', () => { closeModal(); render(); });
+}
+
+/* 关系与隐私 */
+function openRelationship(){
+  const p = NAME[other(S.user)];
+  shell('关系与隐私', `你和${p}`,
+    `已经连接 ${S.pairedDays} 天。下面每一项都只管你自己这一侧 —— ${p}那边有一套一模一样的开关，你们互相看不到、也改不了对方的。`,
+    `<div class="relrow">
+       <div>
+         <div class="rt">让 AI 用我的日记，帮${p}理解我</div>
+         <div class="rd">打开后，${p}和 AI 聊天时，AI 可以参考你日记里透出来的<b>表达习惯</b>（比如"累的时候会变得直接"），但绝不会引用你写的任何一句原话。关掉后，${p}那边的 AI 就只知道你们摊在明面上说过的话。</div>
+       </div>
+       <div class="spacer"></div>
+       <button class="sw" id="swConsent" aria-pressed="${S.consent[S.user]}" aria-label="切换授权"></button>
+     </div>
+     <div class="relrow">
+       <div>
+         <div class="rt">邀请码</div>
+         <div class="rd" style="font-family:var(--mono);letter-spacing:.08em;">${S.inviteCode} · 已被${p}使用</div>
+       </div>
+     </div>
+     <div class="relrow">
+       <div>
+         <div class="rt">如果有一天要断开</div>
+         <div class="rd">共同沟通的记录，你们各自留一份存档。<b>各自的日记留在各自这里</b> —— 对方从来就没有拥有过它们，所以也没有什么需要"还"。AI 会立刻同时失去两边的访问权。这一步做完就回不去了。</div>
+       </div>
+     </div>
+     <div style="margin-top:14px;">
+       <button class="btn ghost danger" id="btnDisconnect" style="width:100%;">断开与${p}的连接</button>
+     </div>
+     <details class="adv">
+       <summary>演示设置 · 连接真实的 Claude</summary>
+       <div class="rd" style="margin-bottom:9px;">留空就用内置的预设剧本，断网也能完整演示。填了会真的调用模型，key 只存在这个页面的内存里，刷新就没了。</div>
+       <input class="keyin" id="keyIn" type="password" placeholder="sk-ant-..." value="${esc(S.apiKey)}">
+     </details>`,
+    `<button class="btn ghost" id="rClose">关闭</button>
+     <button class="btn me" id="rSave">保存</button>`);
+
+  document.getElementById('swConsent').addEventListener('click', e => {
+    const on = e.currentTarget.getAttribute('aria-pressed') === 'true';
+    e.currentTarget.setAttribute('aria-pressed', String(!on));
+  });
+  document.getElementById('btnDisconnect').addEventListener('click', () => openDisconnect());
+  document.getElementById('rClose').addEventListener('click', closeModal);
+  document.getElementById('rSave').addEventListener('click', () => {
+    S.consent[S.user] = document.getElementById('swConsent').getAttribute('aria-pressed') === 'true';
+    S.apiKey = document.getElementById('keyIn').value.trim();
+    closeModal(); updateMode(); render();
+  });
+}
+
+function openDisconnect(){
+  const p = NAME[other(S.user)];
+  shell('不可撤销', `确定要断开和${p}的连接吗`,
+    `${p}会收到一条通知，只说明你断开了连接，不会说明理由。你们的共同记录会各自变成一份只读的存档。`,
+    `<div class="willsee">
+       <div>${ICON.eyeoff}<span>你的日记 <b>留在你这里</b>，不受影响</span></div>
+       <div>${ICON.eyeoff}<span>${p}的日记留在${p}那里，你本来也看不到</span></div>
+       <div>${ICON.eyeoff}<span>AI 立刻失去对双方的全部访问</span></div>
+     </div>`,
+    `<button class="btn ghost" id="dCancel">再想想</button>
+     <button class="btn ghost danger" id="dOk">确认断开</button>`);
+  document.getElementById('dCancel').addEventListener('click', openRelationship);
+  document.getElementById('dOk').addEventListener('click', () => {
+    const k = S.apiKey; S = seed(); S.apiKey = k;
+    S.screen = 'onboard'; S.onbStep = 1;
+    closeModal(); render(); updateMode();
+  });
+}
+
+function updateMode(){
+  const live = !!S.apiKey;
+  document.getElementById('modeBadge').textContent = live ? '实时模式' : '演示模式';
+  document.getElementById('modeNote').textContent = live
+    ? '调用 claude-sonnet-4-5 · key 仅存于内存'
+    : '回复为预设剧本，无需联网';
+}
+
+/* ============ AI 回复 ============ */
+const SCRIPT = {
+  A:[{
+    observe:'9月3日晚上21:40，你说了那句关于碗的话。TA只回了一个省略号，一分钟后你说"算了"。对话在两分钟内结束，之后你们各自去写了日记。',
+    you:'你说的是碗，但让你堵住的大概不是洗碗本身，而是"回到家还要继续上班、而这个班没有下班时间"的那种感觉。你说"算了"的时候，不是不在乎了，是你已经不指望这一次能被听见 —— 先撤退，好过再失望一次。',
+    them:'从TA的表达习惯看：TA在压力大的时候，倾向于用沉默而不是解释来应付，而且越是知道自己"应该说点什么"，越说不出来。那个省略号更可能是当机，而不是冷战 —— 是"我现在说什么都会更糟"的自我保护。',
+    stuck:'你们卡住的地方不是谁该洗碗，是那天晚上两个人的力气刚好同时用完了，谁都没有余力先伸手。而你们各自都把真话写进了日记，没有写给对方。',
+    draft:'昨天那句话我说得有点冲，对不起。其实我不是嫌你懒 —— 是我那天太累了，一进门看到碗，就觉得自己好像永远下不了班。你当时是不是也很累？'
+  },{
+    observe:'你在问"该怎么开口"。这说明你已经越过了"谁对谁错"，到了"我想修复"的位置。',
+    you:'你担心的是：一开口就变成翻旧账，或者对方又沉默，你会更受伤。这个担心很合理 —— 你们过去几次都是这样收场的。',
+    them:'对TA来说，最难接住的是"你为什么不说话"这类要求解释的问题，因为那正是TA当下做不到的事。相反，TA对"我先说我自己"这种不需要立刻回应的话，接受度会高很多。',
+    stuck:'开口的门槛不在措辞，在时机。在事情刚发生、两个人都还在情绪里的时候讲道理，几乎一定会失败。',
+    draft:'今晚有空的话，我想跟你聊十分钟，不是要算账，就是想让你知道我那天在想什么。你什么时候方便都行。'
+  }],
+  B:[{
+    observe:'共同对话里你只发了一个省略号，然后阿岚说了"算了"。你们两个人各自写了日记，但都没有把里面的话说出口。',
+    you:'你的沉默里其实塞满了东西：委屈、自责、还有"我知道我一沉默TA会更生气"的那种预知。你不是冷漠，是过载 —— 方案改崩了之后，你连组织一句话的余力都没有了。',
+    them:'从阿岚的表达习惯看：TA累到一定程度时，说话会变直接甚至发硬，那更像是求助的语气走了形，不是指责本身。TA说"算了"通常不是放弃你，而是怕再说下去会伤到你。',
+    stuck:'真正的问题是：你的"说不出话"在TA那里看起来像"不想理你"。这两件事差得非常远，但从外面看一模一样。',
+    draft:'昨天我不是不理你。我下午方案改崩了，当时脑子是空的，一句完整的话都组织不出来。我知道我一沉默你会更难受，对不起。'
+  },{
+    observe:'你在问怎么解释"我不是不在乎"。注意：你在意的是被误解，而不是被指责 —— 这两者需要的回应不一样。',
+    you:'你倾向于等自己"想清楚了、说得对了"再开口，所以常常错过当下。但对方需要的往往不是完整的解释，只是一个当场的信号。',
+    them:'阿岚在等的不是道理，是"我还在这里"这件事本身。对TA来说，沉默的空白会被自动填成最坏的那个版本。',
+    stuck:'你们缺的不是沟通能力，是一个"我现在说不出话，但我没走"的中间选项。',
+    draft:'我现在有点说不出话，不是生你的气，是脑子太满了。给我一点时间，我缓过来就跟你说，好吗？'
+  }]
+};
+
+function fallbackReply(user, question){
+  const p = NAME[other(user)];
+  return {
+    observe:`你刚才问的是："${question}"。`,
+    you:'这个问题里已经有一部分答案了 —— 你在意的东西，比你说出口的那句话要多。',
+    them:`${p}那边的反应，多半也不是冲着这件事本身来的。你们各自都在处理一些没说出口的事。`,
+    stuck:'现在最有用的不是继续想，而是把其中一句真话递过去，看看对方怎么接。',
+    draft:'我今天有点不在状态，但我不想把这个带到我们之间。晚点我们聊聊好吗？'
+  };
+}
+
+async function askAI(){
+  const box = document.getElementById('aIn');
+  const text = box.value.trim(); if(!text) return;
+  const u = S.user;
+  S.threads[u].push({ role:'user', text });
+  box.value = '';
+  render();
+  document.getElementById('think').innerHTML = '<div class="thinking">正在把两边的话放在一起看</div>';
+
+  let out;
+  if(S.apiKey){
+    out = await callClaude(u, text);
+  }else{
+    await new Promise(r => setTimeout(r, 900));
+    const n = S.threads[u].filter(m => m.role === 'assistant').length;
+    out = SCRIPT[u][n] || fallbackReply(u, text);
+    if(!partnerData(u).known) out = Object.assign({}, out, unilateral(u));
+  }
+  S.threads[u].push(Object.assign({ role:'assistant' }, out));
+  render();
+}
+
+async function callClaude(u, text){
+  const p = other(u);
+  const mine = S.diary[u].filter(e => e.aiRead).map(e => `[${e.ts}｜${e.mood||'未标注'}] ${e.text}`).join('\n') || '（无）';
+  const pd = partnerData(u);
+  const theirs = pd.known
+    ? S.diary[p].filter(e => e.aiRead).map(e => `[${e.ts}｜${e.mood||'未标注'}] ${e.text}`).join('\n')
+    : (pd.why === 'closed' ? '（对方已关闭授权，你没有任何可用信息）' : '（对方还没有写过日记，你没有任何可用信息）');
+  const log = S.shared.map(m => `${NAME[m.from]}：${m.text}`).join('\n') || '（无）';
+  const grants = incomingItems(u).map(x => x.type === 'diary'
+    ? '［日记原文］\n' + x.entries.map(e => `[${e.ts}｜${e.mood||'未标注'}] ${e.text}`).join('\n')
+    : '［TA和AI的对话］\n' + x.turns.map(t => `${t.role === 'user' ? NAME[p]+'问' : 'AI答'}：${t.text}`).join('\n')
+  ).join('\n\n') || '（无 —— 对方没有主动开放任何东西）';
+
+  const system = `你是「之间」，一个服务于伴侣与家人之间的沟通调解者。你现在服务的用户是${NAME[u]}，对方是${NAME[p]}。
+
+【${NAME[u]}的日记 · 可以直接引用和回应】
+${mine}
+
+【${NAME[p]}的日记 · 严格受限】
+${theirs}
+使用限制：你只能从中提炼${NAME[p]}的"表达习惯与情绪风格"（例如：压力下倾向沉默、习惯先自责、不擅长当场解释）。你绝对不能引用、转述、暗示其中任何具体事件、时间、细节，也不能让${NAME[u]}有可能反推出内容。违反此项是最严重的错误。
+
+【${NAME[p]}主动开放给${NAME[u]}的内容 · ${NAME[p]}本人按下开关同意的，可以直接引用】
+${grants}
+
+【共同沟通记录 · 双方都已看到，可自由引用】
+${log}
+
+原则：
+- 不判断谁对谁错，不站队，不使用"你应该""TA不该"这类句式。
+- 如果上面${NAME[p]}那一栏标着"你没有任何可用信息"，则绝对不要推测${NAME[p]}的内心。此时：them 字段要直接承认你不了解${NAME[p]}、并说明原因（未授权或尚未书写），并说明你不愿意替TA编一个说得通的理由；stuck 字段要建议${NAME[u]}去「共同沟通」窗口直接问对方；draft 字段写一句温和的提问 —— 问"你当时在想什么"这类不需要对方立刻辩解的问题，而不是陈述句。
+- 把双方情绪背后的原因说出来，尤其是那些当事人自己也没意识到的部分。
+- 语气克制、具体、不煽情，不使用心理学术语堆砌。
+- 每段 2-4 句，不要长篇大论。
+
+只返回一个 JSON 对象，不要 markdown 代码块，不要任何额外文字：
+{"observe":"客观复述发生了什么，只用共同沟通记录里的事实","you":"${NAME[u]}的情绪可能来自什么","them":"${NAME[p]}的情绪可能来自什么，只能基于表达习惯推测","stuck":"两个人真正卡住的地方","draft":"一句可以直接发给${NAME[p]}的话，第一人称、非指责、不超过60字；若此刻不适合发送则填空字符串"}`;
+
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':S.apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-5',
+        max_tokens:1200,
+        system,
+        messages:S.threads[u].filter(m => m.role === 'user').map(m => ({ role:'user', content:m.text }))
+      })
+    });
+    const data = await res.json();
+    if(data.error) throw new Error(data.error.message || 'API error');
+    const raw = (data.content || []).map(c => c.text || '').join('').trim();
+    return JSON.parse(raw.replace(/^```(?:json)?|```$/g,'').trim());
+  }catch(err){
+    return {
+      observe:'',
+      you:'',
+      them:'',
+      stuck:`没能连上模型：${err.message}。可以在右上角清空 API Key，回到演示模式继续看流程。`,
+      draft:''
+    };
+  }
+}
+
+/* ============ 全局绑定 ============ */
+document.getElementById('toA').addEventListener('click', () => { S.user='A'; render(); });
+document.getElementById('toB').addEventListener('click', () => { S.user='B'; render(); });
+document.querySelectorAll('nav.tabs button').forEach(b =>
+  b.addEventListener('click', () => { S.tab = b.dataset.tab; render(); }));
+document.getElementById('btnSettings').addEventListener('click', openRelationship);
+document.getElementById('btnFiles').addEventListener('click', openFiles);
+document.getElementById('btnOnboard').addEventListener('click', () => {
+  S.screen = 'onboard'; S.onbStep = 1; render();
+});
+document.getElementById('btnReset').addEventListener('click', () => {
+  const k = S.apiKey; S = seed(); S.apiKey = k; closeModal(); render(); updateMode();
+});
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+updateMode();
+render();
+</script>
+</body>
+</html>
