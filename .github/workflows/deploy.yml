@@ -10,9 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+# 排队执行，不互相取消 —— 否则重跑旧构建会把正在跑的新构建挤掉
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
