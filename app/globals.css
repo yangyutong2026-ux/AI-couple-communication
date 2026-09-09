@@ -1,71 +1,72 @@
-/* ============================================================
-   「之间」设计系统 —— 从 demo/mediator.html 原样搬过来
-   改配色和字号都在这个文件里，改完全站生效
-   ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap');
+
+/* ── 暖米纸 · 赭石 ──────────────────────────────────
+   两个人各有颜色；调解者是暖石墨色，没有色相 —— 因为它不站队。
+   Playfair 排在衬线栈最前，所以拉丁字母走 Playfair，
+   汉字自动落到思源宋体。中英混排各得其所。            */
 :root{
-  --ground:#EDEEF1;
-  --surface:#FFFFFF;
-  --surface-2:#F5F6F8;
-  --ink:#1B1E24;
-  --ink-2:#565C66;
-  --ink-3:#868D99;
-  --line:#DEE1E6;
-  --line-2:#C7CCD4;
-  --a:#9E4F5E;      --a-tint:#F7EBED;  --a-edge:#E3C7CC;
-  --b:#2E6A66;      --b-tint:#E6F0EE;  --b-edge:#BFD8D4;
-  --med:#3A3F4A;    --med-tint:#EDEEF1;
-  --on-accent:#FFFFFF;
-  --warn:#A85336;
-  --glow-a:rgba(158,79,94,.07);
-  --glow-b:rgba(46,106,102,.07);
-  --shadow:0 1px 2px rgba(27,30,36,.05), 0 8px 24px rgba(27,30,36,.06);
-  --shadow-lift:0 4px 12px rgba(27,30,36,.10), 0 24px 48px rgba(27,30,36,.14);
+  --ground:#F2EFE6;
+  --surface:#FBF9F3;
+  --surface-2:#EDE9DE;
+  --ink:#26221D;
+  --ink-2:#5E574D;
+  --ink-3:#918878;
+  --line:#E2DCCE;
+  --line-2:#C9C1AF;
+  --a:#A2542A;      --a-tint:#F2E5D9;  --a-edge:#DFC3AB;
+  --b:#3E5C55;      --b-tint:#E3EAE5;  --b-edge:#BCCBC3;
+  --med:#4A443B;    --med-tint:#EBE7DC;
+  --on-accent:#FBF9F3;
+  --warn:#9A4A2E;
+  --glow-a:rgba(162,84,42,.05);
+  --glow-b:rgba(62,92,85,.045);
+  --shadow:0 1px 2px rgba(38,34,29,.04), 0 10px 30px rgba(38,34,29,.06);
+  --shadow-lift:0 4px 14px rgba(38,34,29,.10), 0 28px 56px rgba(38,34,29,.16);
   --me:var(--a);
   --them:var(--b);
   --ui:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
-  --serif:"Noto Serif SC","Songti SC","SimSun",Georgia,serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:"Playfair Display","Noto Serif SC","Songti SC","SimSun",Georgia,serif;
+  --mono:"Noto Sans SC","PingFang SC",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#111318;
-    --surface:#1A1D23;
-    --surface-2:#22262D;
-    --ink:#E7E9ED;
-    --ink-2:#A3AAB5;
-    --ink-3:#767D89;
-    --line:#2B2F36;
-    --line-2:#3B414A;
-    --a:#D2848F;      --a-tint:#2C2025;  --a-edge:#4A353A;
-    --b:#6FB6AF;      --b-tint:#162726;  --b-edge:#2E4744;
-    --med:#C9CDD5;    --med-tint:#23262C;
-    --on-accent:#15171B;
-    --warn:#D9906C;
-    --glow-a:rgba(210,132,143,.07);
-    --glow-b:rgba(111,182,175,.07);
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-    --shadow-lift:0 4px 12px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.5);
+    --ground:#17140F;
+    --surface:#201C16;
+    --surface-2:#2A251D;
+    --ink:#EFE8DA;
+    --ink-2:#B0A692;
+    --ink-3:#847A68;
+    --line:#332D24;
+    --line-2:#463E32;
+    --a:#D08A5C;      --a-tint:#2E2018;  --a-edge:#4C3626;
+    --b:#7FAA9C;      --b-tint:#1A2622;  --b-edge:#33473F;
+    --med:#D2C9B6;    --med-tint:#2A251D;
+    --on-accent:#17140F;
+    --warn:#D08056;
+    --glow-a:rgba(208,138,92,.06);
+    --glow-b:rgba(127,170,156,.05);
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.4);
+    --shadow-lift:0 4px 14px rgba(0,0,0,.55), 0 28px 56px rgba(0,0,0,.55);
   }
 }
 :root[data-theme="dark"]{
-  --ground:#111318;
-  --surface:#1A1D23;
-  --surface-2:#22262D;
-  --ink:#E7E9ED;
-  --ink-2:#A3AAB5;
-  --ink-3:#767D89;
-  --line:#2B2F36;
-  --line-2:#3B414A;
-  --a:#D2848F;      --a-tint:#2C2025;  --a-edge:#4A353A;
-  --b:#6FB6AF;      --b-tint:#162726;  --b-edge:#2E4744;
-  --med:#C9CDD5;    --med-tint:#23262C;
-  --on-accent:#15171B;
-  --warn:#D9906C;
-  --glow-a:rgba(210,132,143,.07);
-  --glow-b:rgba(111,182,175,.07);
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-  --shadow-lift:0 4px 12px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.5);
+  --ground:#17140F;
+  --surface:#201C16;
+  --surface-2:#2A251D;
+  --ink:#EFE8DA;
+  --ink-2:#B0A692;
+  --ink-3:#847A68;
+  --line:#332D24;
+  --line-2:#463E32;
+  --a:#D08A5C;      --a-tint:#2E2018;  --a-edge:#4C3626;
+  --b:#7FAA9C;      --b-tint:#1A2622;  --b-edge:#33473F;
+  --med:#D2C9B6;    --med-tint:#2A251D;
+  --on-accent:#17140F;
+  --warn:#D08056;
+  --glow-a:rgba(208,138,92,.06);
+  --glow-b:rgba(127,170,156,.05);
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.4);
+  --shadow-lift:0 4px 14px rgba(0,0,0,.55), 0 28px 56px rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box;}
@@ -646,3 +647,97 @@ footer.foot{
 .onb input:focus{border-color:var(--line-2);outline:none;}
 .onb .btn{width:100%;padding:11px;}
 .onb .btn.quiet{padding:8px;}
+
+
+/* ============================================================
+   暖米纸版式补充
+   ============================================================ */
+
+/* 印章 —— 站在标题左边，把名字当作一枚钤印 */
+.seal{
+  flex:none;
+  width:38px; height:52px;
+  border-radius:7px 7px 5px 5px / 10px 10px 6px 6px;
+  background:var(--a);
+  color:var(--on-accent);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:2px;
+  font-family:var(--serif);
+  font-size:15px; font-weight:500; line-height:1;
+  box-shadow:inset 0 0 0 1px rgba(251,249,243,.18);
+}
+
+.brandrow{ align-items:center; gap:13px; }
+
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  letter-spacing:.16em;
+  font-size:25px;
+}
+.tagline{
+  font-size:12.5px;
+  letter-spacing:.01em;
+  color:var(--ink-2);
+}
+
+/* 大标题：拉丁字母走 Playfair 斜体，汉字落到思源宋体 */
+.onb h2, .card-head h3{
+  font-family:var(--serif);
+  letter-spacing:.015em;
+}
+.onb h2{ font-size:24px; line-height:1.55; }
+
+/* 时间戳等小字：原来是等宽体，现在换成带字距的无衬线，数字仍然对齐 */
+.stamp, .lab, .step, .sources, .demoNote, .badge,
+nav.tabs button .s, .msg .who, .card-head .kicker,
+.readline, .accessbtn, .relrow .rd.mono{
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.07em;
+}
+
+/* 正文用的可点文字链接 —— 参考图里"Contact me"那种 */
+.empty .q{
+  color:var(--a);
+  border-bottom:1px solid var(--a-edge);
+  padding-bottom:3px;
+}
+.empty .q:hover{ border-bottom-color:var(--a); }
+
+/* 纸感：整幅比之前更安静，去掉冷色渐晕 */
+body{
+  background:
+    radial-gradient(70% 55% at 0% 20%, var(--glow-a), transparent 68%),
+    radial-gradient(70% 55% at 100% 80%, var(--glow-b), transparent 68%),
+    var(--ground);
+}
+
+/* 日记正文：宋体，行距放宽，像写在纸上 */
+.entry-body{
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:2.05;
+  letter-spacing:.012em;
+}
+
+/* 按钮不再是圆角矩形色块，收一点，配合纸质感 */
+.btn{ border-radius:7px; letter-spacing:.04em; }
+
+@media (max-width:420px){
+  .seal{ width:32px; height:44px; font-size:13px; }
+  .wordmark{ font-size:22px; }
+}
+
+/* 输入框：纸白底 + 一道明确的边，而不是比面板更深的色块 */
+.onb input[type=text],
+.onb input[type=email],
+.onb input[type=password],
+.keyin, textarea{
+  background:var(--surface);
+  border:1px solid var(--line-2);
+}
+.onb input:focus, .keyin:focus, textarea:focus{
+  border-color:var(--a);
+  outline:none;
+}

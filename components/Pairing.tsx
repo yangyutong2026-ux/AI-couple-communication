@@ -113,6 +113,7 @@ function Shell({ step, title, children }: { step: string; title: string; childre
     <div className="app">
       <header className="top">
         <div className="brandrow">
+          <div className="seal" aria-hidden="true"><span>之</span><span>间</span></div>
           <div>
             <h1 className="wordmark">之间</h1>
             <div className="tagline">两个人之间，需要一个不站队的翻译者。</div>
