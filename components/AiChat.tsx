@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { askAI } from '@/lib/ai';
 import { when } from '@/lib/format';
 import { Icon } from './Icons';
 import type { AiMessage, DiaryEntry, Grant } from '@/lib/types';
@@ -35,17 +35,7 @@ export default function AiChat({
     if (!text || busy) return;
     setBusy(true); setErr(''); setQ('');
     try {
-      const { data: s } = await supabase.auth.getSession();
-      const res = await fetch('/api/ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${s.session?.access_token}`,
-        },
-        body: JSON.stringify({ coupleId, question: text }),
-      });
-      const body = await res.json();
-      if (!res.ok) throw new Error(body.error || '出错了');
+      await askAI(coupleId, text);
       onChange();
     } catch (e) {
       setErr((e as Error).message);
